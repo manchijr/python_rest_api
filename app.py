@@ -243,7 +243,6 @@ def get_location_with_most_heat():
     except Exception as e:
         # Handle the specific exception types you expect to occur
         
-        # Placeholder error response
         response = {
             'status': 'error',
             'message': 'Failed to fetch location_with_most_heat',
