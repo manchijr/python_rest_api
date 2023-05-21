@@ -3,7 +3,7 @@ import csv
 from flask import Flask,jsonify
 
 app = Flask(__name__)
-
+# Download the CSV file 
 def download_data(url):
     response = requests.get(url)
     if response.status_code == 200:
@@ -12,7 +12,7 @@ def download_data(url):
             file.write(content)
         print("File downloaded successfully.")
         
-        # Read the downloaded CSV file
+# Read the downloaded CSV file
         with open('data.csv', 'r') as file:
             reader = csv.reader(file)
             for row in reader:
@@ -23,7 +23,6 @@ def download_data(url):
 # Test the function with the given URL
 url = "https://corgis-edu.github.io/corgis/datasets/csv/weather/weather.csv"
 
-#download_data(url)
 def load_data(file_path):
     data = []
     with open(file_path, 'r') as file:
@@ -32,10 +31,8 @@ def load_data(file_path):
             data.append(dict(row))
     return data
 
-# Example usage
 file_path = 'data.csv'
 data = load_data(file_path)
-#print(data)
 
 def analyze_data(data):
     max_temperature = float('-inf')
@@ -71,7 +68,7 @@ def analyze_data(data):
     
     return analysis
 
-# Example usage
+
 data = [
     {'location': 'A', 'temperature': '30'},
     {'location': 'B', 'temperature': '35'},
@@ -81,8 +78,9 @@ data = [
 ]
 
 
-#print(result)
-#rest api
+# Print result
+# REST api
+
 @app.route('/weather/download', methods=['POST'])
 def download_endpoint():
     try:
@@ -136,7 +134,6 @@ def get_weather_report():
         status_code = 200
     
     except Exception as e:
-        # Handle the specific exception types you expect to occur
         
         # Placeholder error response
         response = {
@@ -162,7 +159,6 @@ def get_average_temperature():
         status_code = 200
     
     except Exception as e:
-        # Handle the specific exception types you expect to occur
         
         # Placeholder error response
         response = {
@@ -188,7 +184,6 @@ def get_max_temperature():
         status_code = 200
     
     except Exception as e:
-        # Handle the specific exception types you expect to occur
         
         # Placeholder error response
         response = {
@@ -214,7 +209,6 @@ def get_min_temperature():
         status_code = 200
     
     except Exception as e:
-        # Handle the specific exception types you expect to occur
         
         # Placeholder error response
         response = {
@@ -241,8 +235,7 @@ def get_location_with_most_heat():
         status_code = 200
     
     except Exception as e:
-        # Handle the specific exception types you expect to occur
-        
+
         response = {
             'status': 'error',
             'message': 'Failed to fetch location_with_most_heat',
@@ -251,7 +244,6 @@ def get_location_with_most_heat():
         status_code = 500
     
     return jsonify(response), status_code
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=105)
